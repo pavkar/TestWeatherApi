@@ -80,6 +80,24 @@ public class ApiTestingTest {
 	}
 
 	@Test
+	public void testCityCoordiantes() throws Exception {
+		weatherApi.setCityName("London");
+		assert (weatherApi.getCityCoordinates().equals("51.5085:-0.1258"));
+	}
+
+	@Test
+	public void testWrongDayTimeNegative() throws Exception {
+		assert (Double.parseDouble(weatherApi.getDayWindSpeed(-1)) < 300
+				&& Double.parseDouble(weatherApi.getDayWindSpeed(-1)) >= 0);
+	}
+	
+	@Test
+	public void testWrongDayTimeOverThreeDays() throws Exception {
+		assert (Double.parseDouble(weatherApi.getDayWindSpeed(50)) < 300
+				&& Double.parseDouble(weatherApi.getDayWindSpeed(50)) >= 0);
+	}
+
+	@Test
 	public void testFileReading() throws Exception {
 		weatherApi.setCityName(FileOpener.openFile("input.txt"));
 		String request = weatherApi.getWeatherApiCity();

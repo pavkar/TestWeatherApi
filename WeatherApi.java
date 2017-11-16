@@ -2,21 +2,31 @@ package weatherApi;
 
 import org.json.JSONObject;
 
-import fileManager.JSONReader;
+import json.JSONReader;
 import scanner.InfoFromConsole;
 
 public class WeatherApi {
+	private final int MAX_DAYTIME = 29;
 	private JSONObject jsonObject;
 
 	private String cityName;
 
 	public WeatherApi() throws Exception {
-		jsonObject = JSONReader.getJSONObjectObject(cityName);
+		jsonObject = JSONReader.getWeatherJSONObject(cityName);
+	}
+	
+	private int checkDayTime(int dayTime) {
+		if (dayTime > MAX_DAYTIME) {
+			return MAX_DAYTIME;
+		} else if (dayTime < 0) {
+			return 0;
+		}
+		return dayTime;
 	}
 
 	public void setCityName(String cityName) throws Exception {
 		this.cityName = cityName;
-		jsonObject = JSONReader.getJSONObjectObject(this.cityName);
+		jsonObject = JSONReader.getWeatherJSONObject(this.cityName);
 	}
 
 	public void setCityNameFromConsole() throws Throwable {
@@ -31,33 +41,33 @@ public class WeatherApi {
 		return jsonObject.getJSONObject("city").get("name").toString();
 	}
 
-	public String getWeatherApiCoordinates() throws Exception {
+	public String getCityCoordinates() throws Exception {
 		return jsonObject.getJSONObject("city").getJSONObject("coord")
 				.get("lat").toString() + ":" + jsonObject.getJSONObject("city").getJSONObject("coord")
 				.get("lon").toString();
 	}
 
 	public String getDayWeather(int dayTime) throws Exception {
-		return jsonObject.getJSONArray("list").getJSONObject(dayTime).getJSONArray("weather").getJSONObject(0)
+		return jsonObject.getJSONArray("list").getJSONObject(checkDayTime(dayTime)).getJSONArray("weather").getJSONObject(0)
 				.get("main").toString();
 	}
 
 	public String getDayWindSpeed(int dayTime) throws Exception {
-		return jsonObject.getJSONArray("list").getJSONObject(dayTime).getJSONObject("wind").get("speed").toString();
+		return jsonObject.getJSONArray("list").getJSONObject(checkDayTime(dayTime)).getJSONObject("wind").get("speed").toString();
 	}
 
 	public String getDayMinTemp(int dayTime) throws Exception {
-		return jsonObject.getJSONArray("list").getJSONObject(dayTime).getJSONObject("main").get("temp_min").toString();
+		return jsonObject.getJSONArray("list").getJSONObject(checkDayTime(dayTime)).getJSONObject("main").get("temp_min").toString();
 	}
 
 	public String getDayMaxTemp(int dayTime) throws Exception {
-		return jsonObject.getJSONArray("list").getJSONObject(dayTime).getJSONObject("main").get("temp_max").toString();
+		return jsonObject.getJSONArray("list").getJSONObject(checkDayTime(dayTime)).getJSONObject("main").get("temp_max").toString();
 	}
 
 	public JSONObject getAllData(int dayTime) throws Exception {
 		String toReturn = "";
 		toReturn += "City_Name " + cityName + "/n";
-		toReturn += "Coordinates " + getWeatherApiCoordinates() + "/n";
+		toReturn += "Coordinates " + getCityCoordinates() + "/n";
 		toReturn += "Min_Temp " + getDayMinTemp(dayTime) + " K /n";
 		toReturn += "Max_Temp " + getDayMaxTemp(dayTime) + " K /n";
 		toReturn += "Weather " + getDayWeather(dayTime) + "/n";

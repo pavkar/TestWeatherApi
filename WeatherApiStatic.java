@@ -1,11 +1,8 @@
 package weatherApi;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Scanner;
-
 import org.json.JSONObject;
+
+import fileManager.JSONReader;
 
 public class WeatherApiStatic {
 

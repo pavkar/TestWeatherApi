@@ -1,4 +1,4 @@
-package weatherApi;
+package fileManager;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -6,10 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FileOpener {
-	public static String openFile() {
-
-		// The name of the file to open.
-		String fileName = "input.txt";
+	public static String openFile(String fileName) {
 
 		// This will reference one line at a time
 		String line = "";
@@ -25,8 +22,10 @@ public class FileOpener {
 			while ((line = bufferedReader.readLine()) != null) {
 				System.out.println(line);
 				toReturn += line;
+				toReturn += " ";
 			}
-
+			System.out.println("");
+			toReturn = toReturn.substring(0, toReturn.length() - 1);
 			// Always close files.
 			bufferedReader.close();
 			return toReturn;

@@ -6,13 +6,15 @@ import json.JSONReader;
 import scanner.InfoFromConsole;
 
 public class WeatherApi {
-	private final int MAX_DAYTIME = 29;
+	private static final int MAX_DAYTIME = 29;
 	private JSONObject jsonObject;
 
 	private String cityName;
 
 	public WeatherApi() throws Exception {
-		jsonObject = JSONReader.getWeatherJSONObject(cityName);
+		jsonObject = JSONReader.getWeatherJSONObject("");
+		this.cityName = jsonObject.getJSONObject("city").get("name").toString();
+		
 	}
 	
 	private int checkDayTime(int dayTime) {
@@ -25,8 +27,9 @@ public class WeatherApi {
 	}
 
 	public void setCityName(String cityName) throws Exception {
-		this.cityName = cityName;
-		jsonObject = JSONReader.getWeatherJSONObject(this.cityName);
+		jsonObject = JSONReader.getWeatherJSONObject(cityName);
+		this.cityName = jsonObject.getJSONObject("city").get("name").toString();
+		
 	}
 
 	public void setCityNameFromConsole() throws Throwable {

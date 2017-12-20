@@ -7,8 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-//import static org.junit.Assert.*;
-//assertEquals();
+import static org.junit.Assert.*;
 
 public class WeatherApiTest {
 
@@ -71,31 +70,31 @@ public class WeatherApiTest {
 	@Test
 	public void testEmptyCityEntry() throws Exception {
 		weatherApi.setCityName("");
-		assert (weatherApi.getCityName().equals("Tallinn"));
+		assertEquals(weatherApi.getCityName(), "Tallinn");
 	}
 
 	@Test
 	public void testWrongCityEntry() throws Exception {
 		weatherApi.setCityName("hnsfigfgbdfjgndlfnglsnlfghlisndfginsdfngsngfnsnrgiusngfn");
-		assert (weatherApi.getCityName().equals("Tallinn"));
+		assertEquals(weatherApi.getCityName(), "Tallinn");
 	}
 
 	@Test
 	public void testCityCoordiantes() throws Exception {
 		weatherApi.setCityName("London");
-		assert (weatherApi.getCityCoordinates().equals("51.5085:-0.1258"));
+		assertEquals(weatherApi.getCityCoordinates(), "51.5073:-0.1277");
 	}
 
 	@Test
 	public void testWrongDayTimeNegative() throws Exception {
-		assert (Double.parseDouble(weatherApi.getDayWindSpeed(-1)) < 300
-				&& Double.parseDouble(weatherApi.getDayWindSpeed(-1)) >= 0);
+		assert (Double.parseDouble(weatherApi.getDayWindSpeed(-1)) < MAX_WIND_SPEED
+				&& Double.parseDouble(weatherApi.getDayWindSpeed(-1)) >= MIN_WIND_SPEED);
 	}
 
 	@Test
 	public void testWrongDayTimeOverThreeDays() throws Exception {
-		assert (Double.parseDouble(weatherApi.getDayWindSpeed(50)) < 300
-				&& Double.parseDouble(weatherApi.getDayWindSpeed(50)) >= 0);
+		assert (Double.parseDouble(weatherApi.getDayWindSpeed(50)) < MAX_WIND_SPEED
+				&& Double.parseDouble(weatherApi.getDayWindSpeed(50)) >= MIN_WIND_SPEED);
 	}
 
 }

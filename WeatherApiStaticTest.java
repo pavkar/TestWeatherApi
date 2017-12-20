@@ -11,7 +11,7 @@ public class WeatherApiStaticTest {
 	private static final int MIN_TEMP = -100;
 	private static final int MAX_WIND_SPEED = 300;
 	private static final int MIN_WIND_SPEED = 0;
-	
+
 	@Test
 	public void testGetMinTemp() throws Exception {
 		String request = WeatherApiStatic.getDayMinTemp("London", 0);

@@ -1,8 +1,5 @@
 package json;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,15 +15,5 @@ public class JSONReader {
 		return jsonObj;
 	}
 
-	public static JSONObject getWeatherJSONObject(String cityName) throws Exception {
-		try {
-			JSONObject jsonObject = WeatherApiURLReader.getJSONObjectFromApi(cityName);
-			return jsonObject;
-		} catch (UnknownHostException ex) {
-			return OfflineModeJSON.getOfflineApiInfo(cityName);
-		} catch (IOException ex) {
-			return WeatherApiURLReader.getJSONObjectFromApi("Tallinn");
-		}
 
-	}
 }

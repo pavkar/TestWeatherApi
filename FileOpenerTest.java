@@ -1,6 +1,5 @@
 package fileManager;
 
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,19 +19,10 @@ public class FileOpenerTest {
 	}
 
 	@Test
-	public void testSeveralCityNames() throws Exception {
-		for (String city : FileOpener.openFile("inputMany.txt").split(" ")) {
-			weatherApi.setCityName(city);
-			JSONObject request = weatherApi.getAllData(0);
-			FileMaker.writeFile(request);
-			assert (!FileOpener.openFile(city + ".txt").isEmpty());
-		}
-	}
-
-	@Test
 	public void testFileReading() throws Exception {
 		weatherApi.setCityName(FileOpener.openFile("input.txt"));
 		String request = weatherApi.getWeatherApiCity();
 		assert (request.equals("London"));
 	}
+	
 }

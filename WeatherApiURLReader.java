@@ -6,7 +6,7 @@ import java.util.Scanner;
 import org.json.JSONObject;
 
 public class WeatherApiURLReader {
-	protected static JSONObject getJSONObjectFromApi(String cityName) throws Exception {
+	public static JSONObject getJSONObjectFromApi(String cityName) throws Exception {
 		// build a URL
 		String pageUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName
 				+ "&appid=4d72095dfc90617e337f65513da858c2";

@@ -1,5 +1,7 @@
 package fileManager;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -13,21 +15,20 @@ import weatherApi.WeatherApi;
 
 public class FIleWriterMockTest {
 	private WeatherApi weatherApi;
-	@Mock
-	FileMaker filemakerMock;
+	private FileMaker filemakerMock;
 	
 	@Before
 	public void setupBeforeEachTest() throws Exception {
 		weatherApi = new WeatherApi();
+		filemakerMock = mock(FileMaker.class);
 	}
 	
 	@Test
 	public void test() throws Exception {
-		filemakerMock = mock(FileMaker.class);
 		weatherApi.setCityName(FileOpener.openFile("input.txt"));
 		JSONObject request = weatherApi.getAllData(0);
-		verify(filemakerMock);
-		FileMaker.writeFile(request);
+		filemakerMock.writeFile(request);
+		verify(filemakerMock).writeFile(request);
 	}
 
 }
